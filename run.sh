@@ -2,10 +2,11 @@
 ### Workflow for operon classfication
 
 # Root folder name"
-NAME=OperonProject
+ROOT_FOLDER_NAME=OperonProject
 
 
 main(){
+  create_folders
   set_variables # -> Never comment this function
   run_fetch_door2_and_ncbi_data
   run_classification_code
@@ -20,15 +21,25 @@ main(){
 	#run_MSA_analyses
 }
 
+#create folder structure
+
+create_folders(){
+  echo "Creating folders..."
+  for FOLDER in analyses bin data docs
+  do
+      mkdir -p ${ROOT_FOLDER_NAME}/${FOLDER}
+  done
+  echo "DONE creating folders..."
+
+}
 
 # setting variable path
 set_variables(){
   echo "Setting variables for paths..."
-
-  export ROOT_FOLDER_NAME=$NAME
-  export DATA_FOLDER=$(pwd)/data
-  export ANALYSES_FOLDER=$(pwd)/analyses
-  export BIN_FOLDER=$(pwd)/bin
+  export ROOT_FOLDER_NAME
+  export DATA_FOLDER=${ROOT_FOLDER_NAME}/data
+  export ANALYSES_FOLDER=${ROOT_FOLDER_NAME}/analyses
+  export BIN_FOLDER=${ROOT_FOLDER_NAME}/bin
   echo "DONE setting variables for paths!"
 }
 
@@ -100,7 +111,7 @@ run_occurrence_based_ranking(){
 run_cooccurrence_based_gene_ranking(){
    echo "Running co-occurrence gene based ranking"
    mkdir -p ${ANALYSES_FOLDER}/co-occurrence
-   python3 ${BIN_FOLDER}/coccurrence_gene_based_ranking_analysis.py \
+   python3 ${BIN_FOLDER}/cooccurrence_gene_based_ranking_analysis.py \
          ${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
          ${ANALYSES_FOLDER}/co-occurrence
    echo "DONE running co-occurrence based gene ranking"
@@ -111,7 +122,7 @@ run_cooccurrence_based_functional_ranking(){
    echo "Running co-occurrence based functional ranking"
 	mkdir -p ${ANALYSES_FOLDER}/co-occurrence
    mkdir  ${ANALYSES_FOLDER}/co-occurrence/top_genome_list
-	python3 ${BIN_FOLDER}/coccurrence_func_based_ranking_analysis.py \
+	python3 ${BIN_FOLDER}/cooccurrence_func_based_ranking_analysis.py \
          ${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
          ${ANALYSES_FOLDER}/co-occurrence
    echo "DONE running co-occurrence based functional ranking"
@@ -155,7 +166,12 @@ run_extract_sequences_for_phylogenetic_analyses(){
    		#grep -F $(<analyses/gene_motif/tmp.txt)
 			cat ${FILE} | sed 1d | awk -F'\t' '{print $1}'  >  ${ANALYSES_FOLDER}/gene_motif/tmp.txt
 			TMPGRP=$(cat ${ANALYSES_FOLDER}/gene_motif/tmp.txt)
-			${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd -db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA -entry all -outfmt "%g;;%t" | grep -F "${TMPGRP}" | awk -F";;" '/16S/{print $1}' | ${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd -db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA -entry_batch - -out ${ANALYSES_FOLDER}/gene_motif/16S_sequences/${FILENAME}_sequences.fasta
+			${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd \
+        -db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA \
+        -entry all -outfmt "%g;;%t" | grep -F "${TMPGRP}" | awk -F";;" '/16S/{print $1}' | ${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd \
+        -db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA \
+        -entry_batch - \
+        -out ${ANALYSES_FOLDER}/gene_motif/16S_sequences/${FILENAME}_sequences.fasta
 		done
 	rm ${ANALYSES_FOLDER}/gene_motif/tmp.txt
 	echo "DONE running to extract 16S sequences of genomes"
