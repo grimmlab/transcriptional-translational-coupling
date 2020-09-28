@@ -6,16 +6,16 @@ ROOT_FOLDER_NAME=OperonProject
 
 
 main(){
-  create_folders
-  set_variables # -> Never comment this function
-  run_fetch_door2_and_ncbi_data
-  run_classification_code
+	create_folders
+	set_variables # -> Never comment this function
+	run_fetch_door2_and_ncbi_data
+	run_classification_code
 	run_concatenate_all_classified_files
 	run_modify_concatenate_all_classified_files
 	run_occurrence_based_ranking
 	run_cooccurrence_based_gene_ranking
 	run_cooccurrence_based_functional_ranking
-  run_gene_motif_search
+	run_gene_motif_search
 	run_extract_sequences_for_phylogenetic_analyses
 	run_compress_fasta_for_phylogenetic_analyses
 	#run_MSA_analyses
@@ -24,12 +24,12 @@ main(){
 #create folder structure
 
 create_folders(){
-  echo "Creating folders..."
-  for FOLDER in analyses bin data docs
-  do
-      mkdir -p ${ROOT_FOLDER_NAME}/${FOLDER}
-  done
-  echo "DONE creating folders..."
+	echo "Creating folders..."
+	for FOLDER in analyses bin data
+		do
+			mkdir -p ${ROOT_FOLDER_NAME}/${FOLDER}
+		done
+	echo "DONE creating folders..."
 
 }
 
@@ -130,17 +130,17 @@ run_cooccurrence_based_functional_ranking(){
 
 
 run_gene_motif_search(){
-   echo "Running to gene motif search "
-	rm ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
-   mkdir -p ${ANALYSES_FOLDER}/gene_motif
-   echo "">${ANALYSES_FOLDER}/motif_counts.txt
-   while read p; do
-		echo Running for motif \"${p}\"
-  	python3 ${BIN_FOLDER}/gene_comb_count.py \
-         ${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
-         ${ANALYSES_FOLDER}/gene_motif \
-       	"${p}" >> ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
-   done <${ANALYSES_FOLDER}/gene_motifs_list.txt
+  echo "Running to gene motif search "
+  rm ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
+  mkdir -p ${ANALYSES_FOLDER}/gene_motif
+  echo "">${ANALYSES_FOLDER}/motif_counts.txt
+  while read p; do
+    echo Running for motif \"${p}\"
+    python3 ${BIN_FOLDER}/gene_comb_count.py \
+    ${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
+    ${ANALYSES_FOLDER}/gene_motif \
+    "${p}" >> ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
+  done <${ANALYSES_FOLDER}/gene_motifs_list.txt
 	find ${ANALYSES_FOLDER}/gene_motif/ -type f  -ctime -1 |
 	while read fname; do
        sz=`cat $fname | wc -l`   # Not a UUOC done to get just a line count
