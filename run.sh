@@ -2,7 +2,7 @@
 ### Workflow for operon classfication
 
 # Root folder name"
-ROOT_FOLDER_NAME=OperonProject
+#ROOT_FOLDER_NAME=OperonProject
 
 
 main(){
@@ -25,7 +25,7 @@ main(){
 
 create_folders(){
 	echo "Creating folders..."
-	for FOLDER in analyses bin data
+	for FOLDER in analyses data
 		do
 			mkdir -p ${ROOT_FOLDER_NAME}/${FOLDER}
 		done
@@ -35,53 +35,52 @@ create_folders(){
 
 # setting variable path
 set_variables(){
-  echo "Setting variables for paths..."
-  export ROOT_FOLDER_NAME
-  export DATA_FOLDER=${ROOT_FOLDER_NAME}/data
-  export ANALYSES_FOLDER=${ROOT_FOLDER_NAME}/analyses
-  export BIN_FOLDER=${ROOT_FOLDER_NAME}/bin
-  echo "DONE setting variables for paths!"
+	echo "Setting variables for paths..."
+	#export ROOT_FOLDER_NAME
+	export DATA_FOLDER=$(pwd)/data
+	export ANALYSES_FOLDER=$(pwd)/analyses
+	export BIN_FOLDER=$(pwd)/bin
+	echo "DONE setting variables for paths!"
 }
 
 
 run_fetch_door2_and_ncbi_data(){
-  echo "Fetching operon table and genbank using restapi..."
-  cd ${BIN_FOLDER}
-  python3 fetch_operon_genbank_restapi.py ${DATA_FOLDER}
-  echo "DONE fetching operon table and genbank using restapi!"
+	echo "Fetching operon table and genbank using restapi..."
+	cd ${BIN_FOLDER}
+	python3 fetch_operon_genbank_restapi.py ${DATA_FOLDER}
+	echo "DONE fetching operon table and genbank using restapi!"
 }
 
 
 run_classification_code(){
-
-  echo "Running operon classification"
-  for DIR in $(ls ${DATA_FOLDER})
-  do
-	  FILE1=$(ls ${DATA_FOLDER}/${DIR}/GCA*.txt)
-     FILE2=$(ls ${DATA_FOLDER}/${DIR}/*NC_*[0-9].txt)
-     #echo $FILE1 $FILE2
-     cd ${BIN_FOLDER}
-     python3 oprfile_operon_classification_alldoor2_v2.py ${FILE1} ${FILE2}
-     cd ..
-   done
-   echo "DONE running operon classification!"
+	echo "Running operon classification"
+	for DIR in $(ls ${DATA_FOLDER})
+  	do
+		FILE1=$(ls ${DATA_FOLDER}/${DIR}/GCA*.txt)
+		FILE2=$(ls ${DATA_FOLDER}/${DIR}/*NC_*[0-9].txt)
+		#echo $FILE1 $FILE2
+	 	cd ${BIN_FOLDER}
+	 	python3 oprfile_operon_classification_alldoor2_v2.py ${FILE1} ${FILE2}
+		cd ..
+   	done
+	echo "DONE running operon classification!"
 }
 
 
 run_concatenate_all_classified_files(){
 	echo "Running to combine classified files"
-   OP_HEADER=$(cat data/Acaryochloris_marina_MBIC11017/Acaryochloris_marina_MBIC11017_NC_009925_operon_classification_output.txt | head -n 1 | cut -f2-)
-   #printf $OP_HEADER>  ${ANALYSES_FOLDER}/Final_combined_files.txt
-   echo Filename '\t' function '\t' operon '\t' classification '\t' gene_symbol '\t' COG_number >  ${ANALYSES_FOLDER}/Final_combined_files.txt
+   	OP_HEADER=$(cat data/Acaryochloris_marina_MBIC11017/Acaryochloris_marina_MBIC11017_NC_009925_operon_classification_output.txt | head -n 1 | cut -f2-)
+   	#printf $OP_HEADER>  ${ANALYSES_FOLDER}/Final_combined_files.txt
+   	echo Filename '\t' function '\t' operon '\t' classification '\t' gene_symbol '\t' COG_number >  ${ANALYSES_FOLDER}/Final_combined_files.txt
 	for DIR in $(ls ${DATA_FOLDER}/*/*classification_output.txt)
 	do
 		#echo ${DIR}
-      FILENAME=$(basename $DIR | sed 's/_operon_classification_output.txt//g')
-      #echo $FILENAME
+      		FILENAME=$(basename $DIR | sed 's/_operon_classification_output.txt//g')
+      		#echo $FILENAME
 		# grep "both" ${DIR} >> ${ANALYSES_FOLDER}/Final_combined_files.txt
-      TAB=`echo 'x' | tr 'x' '\011'`
-      grep "both" $DIR | while IFS=$TAB read -r col1 col2 col3 col4 col5 col6; do
-           echo $FILENAME '\t' $col2 '\t' $col3 '\t' $col4 '\t' $col5 '\t' $col6 >> ${ANALYSES_FOLDER}/Final_combined_files.txt;	done
+		TAB=`echo 'x' | tr 'x' '\011'`
+	      	grep "both" $DIR | while IFS=$TAB read -r col1 col2 col3 col4 col5 col6; do
+	      	echo $FILENAME '\t' $col2 '\t' $col3 '\t' $col4 '\t' $col5 '\t' $col6 >> ${ANALYSES_FOLDER}/Final_combined_files.txt;	done
    done
 	cat ${ANALYSES_FOLDER}/Final_combined_files.txt | cut -f1 | uniq > ${ANALYSES_FOLDER}/genome_list_containing_both.txt
 	echo "DONE running to combine classified files"
@@ -109,43 +108,43 @@ run_occurrence_based_ranking(){
 
 
 run_cooccurrence_based_gene_ranking(){
-   echo "Running co-occurrence gene based ranking"
-   mkdir -p ${ANALYSES_FOLDER}/co-occurrence
-   python3 ${BIN_FOLDER}/cooccurrence_gene_based_ranking_analysis.py \
-         ${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
-         ${ANALYSES_FOLDER}/co-occurrence
-   echo "DONE running co-occurrence based gene ranking"
+	echo "Running co-occurrence gene based ranking"
+	mkdir -p ${ANALYSES_FOLDER}/co-occurrence
+	python3 ${BIN_FOLDER}/cooccurrence_gene_based_ranking_analysis.py \
+         	${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
+        	${ANALYSES_FOLDER}/co-occurrence
+   	echo "DONE running co-occurrence based gene ranking"
 }
 
 
 run_cooccurrence_based_functional_ranking(){
-   echo "Running co-occurrence based functional ranking"
+	echo "Running co-occurrence based functional ranking"
 	mkdir -p ${ANALYSES_FOLDER}/co-occurrence
-   mkdir  ${ANALYSES_FOLDER}/co-occurrence/top_genome_list
+   	mkdir  ${ANALYSES_FOLDER}/co-occurrence/top_genome_list
 	python3 ${BIN_FOLDER}/cooccurrence_func_based_ranking_analysis.py \
-         ${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
-         ${ANALYSES_FOLDER}/co-occurrence
-   echo "DONE running co-occurrence based functional ranking"
+         	${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
+         	${ANALYSES_FOLDER}/co-occurrence
+   	echo "DONE running co-occurrence based functional ranking"
 }
 
 
 run_gene_motif_search(){
-  echo "Running to gene motif search "
-  rm ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
-  mkdir -p ${ANALYSES_FOLDER}/gene_motif
-  echo "">${ANALYSES_FOLDER}/motif_counts.txt
-  while read p; do
-    echo Running for motif \"${p}\"
-    python3 ${BIN_FOLDER}/gene_comb_count.py \
-    ${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
-    ${ANALYSES_FOLDER}/gene_motif \
-    "${p}" >> ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
-  done <${ANALYSES_FOLDER}/gene_motifs_list.txt
-	find ${ANALYSES_FOLDER}/gene_motif/ -type f  -ctime -1 |
-	while read fname; do
-       sz=`cat $fname | wc -l`   # Not a UUOC done to get just a line count
-       [ $sz -lt 2 ] && rm $fname
-	done
+  	echo "Running to gene motif search "
+  	rm ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
+	mkdir -p ${ANALYSES_FOLDER}/gene_motif
+	echo "">${ANALYSES_FOLDER}/motif_counts.txt
+	while read p; do
+		echo Running for motif \"${p}\"
+		python3 ${BIN_FOLDER}/gene_comb_count.py \
+	    		${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
+	    		${ANALYSES_FOLDER}/gene_motif \
+	    		"${p}" >> ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
+	  	done <${ANALYSES_FOLDER}/gene_motifs_list.txt
+			find ${ANALYSES_FOLDER}/gene_motif/ -type f  -ctime -1 |
+		while read fname; do
+	       		sz=`cat $fname | wc -l`   # Not a UUOC done to get just a line count
+	       		[ $sz -lt 2 ] && rm $fname
+		done
 	echo "DONE running to gene motif search "
 }
 
@@ -163,15 +162,15 @@ run_extract_sequences_for_phylogenetic_analyses(){
 			FILENAME=$(basename ${FILE} | sed -e "s/_genome_list.txt/_genome/")
 
 			#echo "Acidaminococcus fermentans DSM 20731" | grep -F "$(<${ANALYSES_FOLDER}/gene_motif/tmp.txt)"
-   		#grep -F $(<analyses/gene_motif/tmp.txt)
+   			#grep -F $(<analyses/gene_motif/tmp.txt)
 			cat ${FILE} | sed 1d | awk -F'\t' '{print $1}'  >  ${ANALYSES_FOLDER}/gene_motif/tmp.txt
 			TMPGRP=$(cat ${ANALYSES_FOLDER}/gene_motif/tmp.txt)
 			${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd \
-        -db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA \
-        -entry all -outfmt "%g;;%t" | grep -F "${TMPGRP}" | awk -F";;" '/16S/{print $1}' | ${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd \
-        -db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA \
-        -entry_batch - \
-        -out ${ANALYSES_FOLDER}/gene_motif/16S_sequences/${FILENAME}_sequences.fasta
+				-db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA \
+				-entry all -outfmt "%g;;%t" | grep -F "${TMPGRP}" | awk -F";;" '/16S/{print $1}' | ${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd \
+				-db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA \
+				-entry_batch - \
+				-out ${ANALYSES_FOLDER}/gene_motif/16S_sequences/${FILENAME}_sequences.fasta
 		done
 	rm ${ANALYSES_FOLDER}/gene_motif/tmp.txt
 	echo "DONE running to extract 16S sequences of genomes"
@@ -198,7 +197,7 @@ run_MSA_analyses(){
 
 	tar xfvz mafft-7.471-with-extensions-src.tgz
 
-   mkdir -p ${BIN_FOLDER}/mafft
+   	mkdir -p ${BIN_FOLDER}/mafft
 
 	sed -i "s#PREFIX = /usr/local#PREFIX = ${BIN_FOLDER}/mafft#g" mafft-7.471-with-extensions/core/Makefile
 
