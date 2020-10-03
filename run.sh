@@ -47,6 +47,7 @@ set_variables(){
 run_fetch_door2_and_ncbi_data(){
 	echo "Fetching operon table and genbank using restapi..."
 	cd ${BIN_FOLDER}
+	unzip ftp_path.zip
 	python3 fetch_operon_genbank_restapi.py ${DATA_FOLDER}
 	echo "DONE fetching operon table and genbank using restapi!"
 }
