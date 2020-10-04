@@ -8,6 +8,10 @@ Created on Thu Aug 27 23:36:23 2020
 from Bio import SeqIO
 import argparse
 import re
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
+txz = importr('taxize')
+
 
 parser = argparse.ArgumentParser(description='extracted uncompressed 16S rRNA fasta file')                                                  
                                                                                                                                          
@@ -38,7 +42,11 @@ for i in range(0,len(records)):
     else:
         id_dict[wrd] = 1
         nid = records[i].name 
-        id_line = '>' + ' '.join(records[i].description.split(' ')[0:2]) + '\n'
+        #id_line = '>' + ' '.join(records[i].description.split(' ')[0:2]) + '\n'
+        genus_id = ' '.join(records[i].description.split(' ')[1:2])
+        # Call R function
+        tr = txz.tax_name(sci=genus_id, get = ["phylum", "kingdom"], db = "itis", messages = False)
+        id_line = '>' + tr[2][0] + '|' + tr[3][0] + '|' + tr[1][0]  + '\n'
         seq = records[i]._seq._data + '\n'
         w_handle.write(id_line)
         seq_nl =  re.sub("(.{80})", "\\1\n", seq, 0, re.DOTALL)
