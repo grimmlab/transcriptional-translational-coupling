@@ -26,7 +26,7 @@ To run the full pipeline you just have to run the main bash script:
 ./run.sh
 ```
   
-*Individual scripts and files required to run the workflow can be found in the `bin` folder.
+*Individual scripts and files required to run the workflow can be found in the `bin` folder.*
 
 ## Operating System
 
