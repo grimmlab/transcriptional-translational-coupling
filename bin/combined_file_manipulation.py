@@ -1,3 +1,13 @@
+__author__ = “Richa Bharti”
+__copyright__ = “Copyright 2019”
+__credits__ = [“Richa Bharti”]
+__license__ = “MIT”
+__version__ = “0.1.0”
+__maintainer__ = “Richa Bharti, Dominik Grimm”
+__email__ = “richabharti74@gmail.com”
+__status__ = “Dev”
+
+
 import textwrap
 import pandas as pd
 import numpy as np
