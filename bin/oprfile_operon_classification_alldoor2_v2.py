@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
+#!/usr/bin/python3
 
-# Owned
 __author__ = “Richa Bharti”
 __copyright__ = “Copyright 2019”
 __credits__ = [“Richa Bharti”]
