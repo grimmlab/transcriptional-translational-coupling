@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Aug 27 23:36:23 2020
+#!/usr/bin/python3
 
-@author: Richa Bharti
-"""
+__author__ = “Richa Bharti”
+__copyright__ = “Copyright 2019”
+__credits__ = [“Richa Bharti”]
+__license__ = “MIT”
+__version__ = “0.1.0”
+__maintainer__ = “Richa Bharti, Dominik Grimm”
+__email__ = “richabharti74@gmail.com”
+__status__ = “Dev”
 
 from Bio import SeqIO
 import argparse
