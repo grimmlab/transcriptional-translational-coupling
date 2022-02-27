@@ -208,6 +208,4 @@ run_MSA_analyses(){
 	make install
 }
 
-
-
 main
