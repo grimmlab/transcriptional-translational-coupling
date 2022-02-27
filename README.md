@@ -11,7 +11,7 @@ Richa Bharti, Daniel Siebert, Bastian Blombach, Dominik G. Grimm
  ## Pipeline Summary
 We have created a comparative genomics pipeline for screening genomic distributions of probable conserved operonic motifs in bacteria (Figure 1). More details can be found in the accompanying manuscript. The workflow provided here contain series of steps written as invidual python scripts which are stiched together and can be controlled by bash scripts `run.sh`.
 
-This is the associated GitHub page to reproduce the results from the following paper (under preparation):
+This is the associated GitHub page can be used to reproduce the results in tablular and some figures from the following paper (under preparation):
 
 
 <p align="center">
