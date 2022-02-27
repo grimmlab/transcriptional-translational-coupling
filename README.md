@@ -32,10 +32,10 @@ Codename:       bionic <br/>
 'lsb_release -a' on a Ubuntu based system.
 
 ###  Dependencies and packages
-<p style='text-align: justify;'> In order to run thework please make sure that you have all the libaried install in your local machine.
+<p style='text-align: justify;'> In order to run thework please make sure that you have all the libaries install in your local machine.
 Without these the workflow will fail to run. </p>
 
-- python3: libraries (pickle,urlli, BeautifulSoup, pandas, numpy, seaborn, json  etc --> please make sure that all the libries in the code are already installed)
+- python3: libraries (pickle,urlli, BeautifulSoup, pandas, numpy, seaborn, json  etc --> please make sure that all the libraries in the code are already installed)
 - git
 
 ## How to run the pipeline
