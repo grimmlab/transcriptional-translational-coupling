@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python3
 
-__author__ = "Richa Bharti"
-__copyright__ = "Copyright 2019"
+__author__ = "Richa Bharti, Dominik Grimm"
+__copyright__ = "Copyright 2019-2022"
 __license__ = "MIT"
 __version__ = "0.1.0"
 __maintainer__ = "Richa Bharti, Dominik Grimm"
@@ -127,7 +127,7 @@ skip_folder = ["Acinetobacter baumannii AB307-0294","Acinetobacter baumannii MDR
 ncbi_root_url = 'https://www.ncbi.nlm.nih.gov./assembly/?term='
 ncbi_ftp_root_url = 'ftp.ncbi.nlm.nih.gov'
 for key in n_key_list:
-    continue
+    #continue
 
     #print (skip_folder)
     # get the local directory name
