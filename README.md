@@ -29,23 +29,32 @@ Description:    Ubuntu 18.04.2 LTS <br/>
 Release:        18.04 <br/>
 Codename:       bionic <br/>
 
-'lsb_release -a' on a Ubuntu based system.
+`lsb_release -a` on a Ubuntu based system.
 
 ###  Dependencies and packages
-<p style='text-align: justify;'> In order to run thework please make sure that you have all the libaries install in your local machine.
+<p style='text-align: justify;'> In order to reproduce the results please make sure that you have all the libaries on your local machine.
 Without these the workflow will fail to run. </p>
 
-- python3: libraries (pickle,urlli, BeautifulSoup, pandas, numpy, seaborn, json  etc --> please make sure that all the libraries in the code are already installed)
-- git
+- R has to be installed before you install all the Python dependencies `sudo apt-get install r-base`   
 
-## How to run the pipeline
+- Install all Python dependencies (we recommend to first setup a virtual Python environment): `pip3 install -r requirements.txt`   
+
+### How to download the data
+Data will be automatically fetched by the accompanion bash script when running the pipeline. 
+Downliading the data from the DOOR2 database and GenBank can take several hours.
+
+TODO: PLEASE DESCRIBE THIS IN MORE DETAIL
+
+### How to run the pipeline
 
 To run the full pipeline you just have to run the main bash script:
 
 ```
 ./run.sh
 ```
-  
+ 
+TODO: PLEASE DESCRIBE THE STEPS WHICH ARE EXECUTED BY THE BASH SCRIPT RUN AND GIVE DETAILS ABOUT THE SCRIPTS
+
 *Individual scripts and files required to run the workflow can be found in the `bin` folder.*
 
 
