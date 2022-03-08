@@ -89,7 +89,6 @@ k_offset = 0
 
 # Download the operon files
 for key in n_key_list:
-    continue
     t_ncid = ncid_filter_dict[key].split(',')[0]
     t_nc_name = ncid_filter_dict[key].split(',')[1][0:-3]
     sp_name = key.rstrip().replace(' ','_').replace('/','').replace(':','')
