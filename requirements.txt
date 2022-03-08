@@ -7,3 +7,4 @@ biopython==1.79
 beautifulsoup4==4.10.0
 rpy2
 pandas
+requests
