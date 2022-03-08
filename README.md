@@ -41,7 +41,7 @@ Without these the workflow will fail to run. </p>
 
 ### How to download the data
 Data will be automatically fetched by the accompanion bash script when running the pipeline. 
-Downliading the data from the DOOR2 database and GenBank can take several hours.
+Downloading the data from the DOOR2 database and GenBank can take several hours.
 
 TODO: PLEASE DESCRIBE THIS IN MORE DETAIL
 
