@@ -31,13 +31,25 @@ Codename:       bionic <br/>
 
 `lsb_release -a` on a Ubuntu based system.
 
-###  Dependencies and packages
+###  Dependencies, Packages & Installation
 <p style='text-align: justify;'> In order to reproduce the results please make sure that you have all the libaries on your local machine.
 Without these the workflow will fail to run. </p>
 
-- R has to be installed before you install all the Python dependencies `sudo apt-get install r-base`   
-
-- Install all Python dependencies (we recommend to first setup a virtual Python environment): `pip3 install -r requirements.txt`   
+1. Clone this project:
+```
+git clone https://github.com/grimmlab/transcriptional-translational-coupling.git
+```
+   
+2. If not already installed, please install R on your local machine:
+```
+sudo apt-get install r-base
+```
+   
+3. Install all Python dependencies (we recommend to first setup a virtual Python environment): 
+```
+pip3 install -r requirements.txt
+```
+    
 
 ### How to download the data
 Data will be automatically fetched by the accompanion bash script when running the pipeline. 
