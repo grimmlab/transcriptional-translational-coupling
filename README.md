@@ -51,13 +51,40 @@ pip3 install -r requirements.txt
 ```
     
 
-### How to download the data
-Data will be automatically fetched by the accompanion bash script when running the pipeline. 
-Downloading the data from the DOOR2 database and GenBank can take several hours.
+# How to download the data
 
-TODO: PLEASE DESCRIBE THIS IN MORE DETAIL
+There are two options on how to download the data:
+1. Using a data dump (includes all data from the DOOR Database and NCBI Genbank to reproduce the results from the paper)
+2. Download all the data from scratch from DOOR3 and NCBI Genbank
 
-### How to run the pipeline
+### Download data dump
+1. First clone this repository:
+```
+git clone https://github.com/grimmlab/transcriptional-translational-coupling.git
+```
+   
+2. Move to the github and data folder:
+```
+cd transcriptional-translational-coupling/data
+```
+   
+3. Merge splitted data zip files:
+```
+zip -FF data_dump.zip --out data.zip
+```
+   
+4. Unzip merged zip file to extract the data
+```
+unzip data.zip
+```
+   
+### Download data from DOOR3 and NCBI Genbank
+
+TODO PLEASE DESCRIBE
+
+
+
+# How to run the pipeline
 
 To run the full pipeline you just have to run the main bash script:
 
