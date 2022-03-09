@@ -18,7 +18,7 @@ This is the associated GitHub page can be used to reproduce the results in tablu
   <img src="https://github.com/grimmlab/transcriptional-translational-coupling/blob/master/Figure%201.png">
 </p>
 
-## Prerequisites
+# Prerequisites
 Basic prerequisites that need to be satisfied:
 
 ### OS
@@ -91,7 +91,7 @@ To run the full pipeline you just have to run the main bash script:
 ```
 ./run.sh
 ```
- 
+
 TODO: PLEASE DESCRIBE THE STEPS WHICH ARE EXECUTED BY THE BASH SCRIPT RUN AND GIVE DETAILS ABOUT THE SCRIPTS
 
 *Individual scripts and files required to run the workflow can be found in the `bin` folder.*
