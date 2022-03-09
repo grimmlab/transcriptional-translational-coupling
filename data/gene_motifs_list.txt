@@ -1,0 +1,10 @@
+rpoA, rplQ, rpsD, rpsM, rpsK
+nusA, infB 
+nusG, secE 
+rplA, rplK
+rplO, secY, rpmJ
+rplO, secY 
+rbfA, truB 
+rpoA, rpsD, rpsM, secY
+rplK, nusG, secE
+nusG, nusA, rpoA, secY
