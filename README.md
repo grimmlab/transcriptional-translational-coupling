@@ -57,7 +57,7 @@ There are two options on how to download the data:
 1. Using a data dump (includes all data from the DOOR Database and NCBI Genbank to reproduce the results from the paper)
 2. Download all the data from scratch from DOOR3 and NCBI Genbank
 
-### Download data dump
+## Download data dump
 1. First clone this repository:
 ```
 git clone https://github.com/grimmlab/transcriptional-translational-coupling.git
@@ -78,7 +78,9 @@ zip -FF data_dump.zip --out data.zip
 unzip data.zip
 ```
    
-### Download data from DOOR3 and NCBI Genbank
+## [Alternative]: Download data from DOOR3 and NCBI Genbank
+
+This is an alternative on how to download the data. We recommend to use the data dump for reproducibility. Downloading the data from DOOR3 and NCBI Genbank will fetch the latest data and might also include additional data that was not present during the primary analysis.
 
 TODO PLEASE DESCRIBE
 
