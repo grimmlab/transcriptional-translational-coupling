@@ -40,9 +40,10 @@ Without these the workflow will fail to run. </p>
 git clone https://github.com/grimmlab/transcriptional-translational-coupling.git
 ```
    
-2. If not already installed, please install R on your local machine:
+2. If not already installed, please install R and the taxize library on your local machine:
 ```
 sudo apt-get install r-base
+sudo Rscript -e 'install.packages("taxize")'
 ```
    
 3. Install all Python dependencies (we recommend to first setup a virtual Python environment): 
