@@ -7,6 +7,4 @@ biopython==1.79
 beautifulsoup4==4.10.0
 pandas==1.18.5
 requests==2.24.0
-R version >= 4.0.3
 rpy2==3.4.5
-R library - taxize

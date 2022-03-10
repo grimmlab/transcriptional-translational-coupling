@@ -40,9 +40,17 @@ Without these the workflow will fail to run. </p>
 git clone https://github.com/grimmlab/transcriptional-translational-coupling.git
 ```
    
-2. If not already installed, please install R on your local machine:
+2. If not already installed, please install R (>4.0.3) and the taxize library on your local machine:
 ```
-sudo apt-get install r-base
+sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+sudo apt update
+gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
+
+sudo apt install r-base r-base-core r-recommended r-base-dev
+
+sudo Rscript -e 'install.packages("taxize",dependencies = TRUE)'
 ```
    
 3. Install all Python dependencies (we recommend to first setup a virtual Python environment): 
@@ -53,11 +61,13 @@ pip3 install -r requirements.txt
 
 # How to download the data
 
-There are two options on how to download the data:
-1. Using a data dump (includes all data from the DOOR Database and NCBI Genbank to reproduce the results from the paper)
-2. Download all the data from scratch from DOOR3 and NCBI Genbank
+We created a data dump, including all necessary data from the DOOR3 database and NCBI Genbank to reproduce the results from the paper. Alternatively all data can be also fetched from the DOOR3 database and from NCBI Genbank (time consuming).
 
 ## Download data dump
+To download the data dump just run the following commands in your command line.  
+
+**This is only needed if you do not run the full pipeline. To run the full pipeline have a look at the next section**
+
 1. First clone this repository:
 ```
 git clone https://github.com/grimmlab/transcriptional-translational-coupling.git
@@ -77,26 +87,29 @@ zip -FF data_dump.zip --out data.zip
 ```
 unzip data.zip
 ```
-   
-## [Alternative]: Download data from DOOR3 and NCBI Genbank
-
-This is an alternative on how to download the data. We recommend to use the data dump for reproducibility. Downloading the data from DOOR3 and NCBI Genbank will fetch the latest data and might also include additional data that was not present during the primary analysis.
-
-TODO PLEASE DESCRIBE
-
-
 
 # How to run the pipeline
 
-To run the full pipeline you just have to run the main bash script:
+The full pipeline can be run by executing a single bash script (running the full pipeline can **take several hours**):
 
 ```
-./run.sh
+sh run.sh
 ```
 
-TODO: PLEASE DESCRIBE THE STEPS WHICH ARE EXECUTED BY THE BASH SCRIPT RUN AND GIVE DETAILS ABOUT THE SCRIPTS
+This will run the full pipeline, as illustrated in Figure 1B.  
 
-*Individual scripts and files required to run the workflow can be found in the `bin` folder.*
+In the following we will give some detailes about the individual steps of the pipeline within the `run.sh` bash script:
 
+1. The environment and all PATH variables are setup by the script.
+2. `run_uncompress_door2_and_ncbi_data`: The data dumps from the GitHub repo are merged and unzipped
+3. `run_classification_code`: 
+4. `run_concatenate_all_classified_files`:
+5. `run_modify_concatenate_all_classified_files`:
+6. `run_occurrence_based_ranking`:
+7. `run_cooccurrence_based_gene_ranking`:
+8. `run_cooccurrence_based_functional_ranking`:
+9. `run_gene_motif_search`:
+10. `run_extract_sequences_for_phylogenetic_analyses`:
+11. `run_compress_fasta_for_phylogenetic_analyses`:
 
 
