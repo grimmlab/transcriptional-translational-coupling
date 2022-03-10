@@ -112,7 +112,7 @@ b) Genes in operon associated with only translation
 c) both: Genes in operon associated with both transcription and translation   
 d) Genes in operon associated with neither transcription and nor translation.*  
 Second, count data is generated for each operon table by comparing them with a list of bacterial transcriptional and translational genes. The resulting gene list consists of gene names and their reported synonyms for each individual entry. A simultaneous keyword (gene name) and synonym-based (gene-synonym) search module is utilized to create a count table containing a catalogue of each of the categories.  
-6. `run_concatenate_all_classified_files`:
+6. `run_concatenate_all_classified_files`: The output files from the previous task are mergerd (output can be found in `analyses/Final_combined_files.txt`) and filtered for operons with only genes associated with both transcription and translation (output can be found in `analyses/genome_list_containing_both.txt`)
 7. `run_modify_concatenate_all_classified_files`:
 8. `run_occurrence_based_ranking`:
 9. `run_cooccurrence_based_gene_ranking`:
