@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/python3
+#!/usr/bin/python3.6
 
 __author__ = "Richa Bharti"
 __copyright__ = "Copyright 2019"
