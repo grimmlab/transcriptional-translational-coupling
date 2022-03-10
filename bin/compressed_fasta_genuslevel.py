@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/python3
+#!/usr/bin/python3.6
 
 __author__ = "Richa Bharti"
 __copyright__ = "Copyright 2019"
@@ -13,6 +13,7 @@ __status__ = "Dev"
 from Bio import SeqIO
 import argparse
 import re
+import rpy2
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 txz = importr('taxize')
@@ -50,8 +51,13 @@ for i in range(0,len(records)):
         #id_line = '>' + ' '.join(records[i].description.split(' ')[0:2]) + '\n'
         genus_id = ' '.join(records[i].description.split(' ')[1:2])
         # Call R function
-        tr = txz.tax_name(sci=genus_id, get = ["phylum", "kingdom"], db = "itis", messages = False)
+        #print(genus_id)
+        tr = txz.tax_name(sci=genus_id, get = ["phylum","kingdom"], db = "itis", messages = False, rows = 1)
+        #print(tr)
+        if (type(tr[2][0]) == rpy2.rinterface_lib.sexp.NACharacterType) or (type(tr[3][0]) == rpy2.rinterface_lib.sexp.NACharacterType):
+          break;
         id_line = '>' + tr[2][0] + '|' + tr[3][0] + '|' + tr[1][0]  + '\n'
+        #print(id_line)
         seq = records[i]._seq._data + '\n'
         w_handle.write(id_line)
         seq_nl =  re.sub("(.{80})", "\\1\n", seq, 0, re.DOTALL)
