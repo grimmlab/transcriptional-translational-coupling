@@ -102,6 +102,14 @@ In the following we will give some detailes about the individual steps of the pi
 
 1. The environment and all PATH variables are setup by the script.
 2. `run_uncompress_door2_and_ncbi_data`: The data dumps from the GitHub repo are merged and unzipped
-3. `run_classification_code`: This function is running the 
+3. `run_classification_code`: 
+4. `run_concatenate_all_classified_files`:
+5. `run_modify_concatenate_all_classified_files`:
+6. `run_occurrence_based_ranking`:
+7. `run_cooccurrence_based_gene_ranking`:
+8. `run_cooccurrence_based_functional_ranking`:
+9. `run_gene_motif_search`:
+10. `run_extract_sequences_for_phylogenetic_analyses`:
+11. `run_compress_fasta_for_phylogenetic_analyses`:
 
 
