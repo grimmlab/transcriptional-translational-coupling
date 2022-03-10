@@ -9,9 +9,9 @@ Richa Bharti, Daniel Siebert, Bastian Blombach, Dominik G. Grimm
  <p style='text-align: justify;'> The aim of this study is to provide a comprehensive workflow to systematically investigate bacterial genomes for the abundance of transcriptional and translational associated genes clustered in distinct operons.</p>
 
  ## Pipeline Summary
-We have created a comparative genomics pipeline for screening genomic distributions of probable conserved operonic motifs in bacteria (Figure 1). More details can be found in the accompanying manuscript. The workflow provided here contain series of steps written as invidual python scripts which are stiched together and can be controlled by bash scripts `run.sh`.
+We have created a comparative genomics pipeline for screening genomic distributions of probable conserved operonic motifs in bacteria (Figure 1). More details can be found in the accompanying manuscript (currently under preparation). The workflow is based an a series of different steps, which are based on custom Python, R and Bash scripts. The full pipeline can be run with a single Bash command: `run.sh` (more details can be found below).
 
-This is the associated GitHub page can be used to reproduce the results in tablular and some figures from the following paper (under preparation):
+Figure 1 gives a general overview about the different steps of the pipeline. More details can be found in the accompanying manuscript.
 
 
 <p align="center">
