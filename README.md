@@ -40,9 +40,16 @@ Without these the workflow will fail to run. </p>
 git clone https://github.com/grimmlab/transcriptional-translational-coupling.git
 ```
    
-2. If not already installed, please install R and the taxize library on your local machine:
+2. If not already installed, please install R (>4.0.3) and the taxize library on your local machine:
 ```
-sudo apt-get install r-base
+sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+sudo apt update
+gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
+
+sudo apt install r-base r-base-core r-recommended r-base-dev
+
 sudo Rscript -e 'install.packages("taxize")'
 ```
    
@@ -57,7 +64,9 @@ pip3 install -r requirements.txt
 We created a data dump, including all necessary data from the DOOR3 database and NCBI Genbank to reproduce the results from the paper. Alternatively all data can be also fetched from the DOOR3 database and from NCBI Genbank (time consuming).
 
 ## Download data dump
-To download the data dump just run the following commands in your command line. 
+To download the data dump just run the following commands in your command line.  
+
+**This is only needed if you do not run the full pipeline. To run the full pipeline have a look at the next section**
 
 1. First clone this repository:
 ```
@@ -81,15 +90,18 @@ unzip data.zip
 
 # How to run the pipeline
 
-To run the full pipeline you just have to run the main bash script:
+The full pipeline can be run by executing a single bash script:
 
 ```
-./run.sh
+sh run.sh
 ```
 
-TODO: PLEASE DESCRIBE THE STEPS WHICH ARE EXECUTED BY THE BASH SCRIPT RUN AND GIVE DETAILS ABOUT THE SCRIPTS
+This will run the full pipeline, as illustrated in Figure 1B.  
 
-*Individual scripts and files required to run the workflow can be found in the `bin` folder.*
+In the following we will give some detailes about the individual steps of the pipeline within the `run.sh` bash script:
 
+1. The environment and all PATH variables are setup by the script.
+2. `run_uncompress_door2_and_ncbi_data`: The data dumps from the GitHub repo are merged and unzipped
+3. `run_classification_code`: This function is running the 
 
 
