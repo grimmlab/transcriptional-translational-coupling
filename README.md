@@ -98,7 +98,9 @@ sh run.sh
 
 This will run the full pipeline, as illustrated in Figure 1B.  
 
-In the following we will give some detailes about the individual steps of the pipeline within the `run.sh` bash script:
+
+### Summary of the different steps of the pipeline
+In the following we will give some detailes about the individual steps of the pipeline within the `run.sh` bash script. More details about the general pipeline can be found in the accompanying manuscript (currently under preparation):
 
 1. The environment and all PATH variables are setup by the script.
 2. `run_uncompress_door2_and_ncbi_data`: The data dumps from the GitHub repo are merged and unzipped
