@@ -50,7 +50,7 @@ gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
 
 sudo apt install r-base r-base-core r-recommended r-base-dev
 
-sudo Rscript -e 'install.packages("taxize")'
+sudo Rscript -e 'install.packages("taxize",dependencies = TRUE)'
 ```
    
 3. Install all Python dependencies (we recommend to first setup a virtual Python environment): 
@@ -90,7 +90,7 @@ unzip data.zip
 
 # How to run the pipeline
 
-The full pipeline can be run by executing a single bash script:
+The full pipeline can be run by executing a single bash script (running the full pipeline can **take several hours**):
 
 ```
 sh run.sh
