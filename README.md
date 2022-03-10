@@ -61,7 +61,7 @@ pip3 install -r requirements.txt
 
 # How to download the data
 
-We created a data dump, including all necessary data from the DOOR3 database and NCBI Genbank to reproduce the results from the paper. Alternatively all data can be also fetched from the DOOR3 database and from NCBI Genbank (time consuming).
+We created a data dump, including all necessary data from the DOOR2 database and NCBI Genbank to reproduce the results from the paper. Alternatively all data can be also fetched from the DOOR2 database and from NCBI Genbank (time consuming).
 
 ## Download data dump
 To download the data dump just run the following commands in your command line.  
