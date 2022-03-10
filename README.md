@@ -106,7 +106,12 @@ In the following we will give some detailes about the individual steps of the pi
 
 2. `run_uncompress_door2_and_ncbi_data`: The data dumps from the GitHub repo are merged and unzipped into `data/data`  
 
-3. `run_classification_code`: This is the most time intensive step of the whole pipeline. Here the data from GenBank and the DOOR database are analysed. First, GenBank annotation files are extracted for each genome and a table of operons is created based on the relative proportions of operons which fall into one of the following categories: (a) Genes in operon associated with only transcription, (b) Genes in operon associated with only translation, (c) both: Genes in operon associated with both transcription and translation, and (d) Genes in operon associated with neither transcription and nor translation. Second, count data is generated for each operon table by comparing them with a list of bacterial transcriptional and translational genes. The resulting gene list consists of gene names and their reported synonyms for each individual entry. A simultaneous keyword (gene name) and synonym-based (gene-synonym) search module is utilized to create a count table containing a catalogue of each of the categories.  
+3. `run_classification_code`: This is the most time intensive step of the whole pipeline. Here the data from GenBank and the DOOR database are analysed. First, GenBank annotation files are extracted for each genome and a table of operons is created based on the relative proportions of operons which fall into one of the following categories:  
+*a) Genes in operon associated with only transcription  
+b) Genes in operon associated with only translation  
+c) both: Genes in operon associated with both transcription and translation   
+d) Genes in operon associated with neither transcription and nor translation.*  
+Second, count data is generated for each operon table by comparing them with a list of bacterial transcriptional and translational genes. The resulting gene list consists of gene names and their reported synonyms for each individual entry. A simultaneous keyword (gene name) and synonym-based (gene-synonym) search module is utilized to create a count table containing a catalogue of each of the categories.  
 6. `run_concatenate_all_classified_files`:
 7. `run_modify_concatenate_all_classified_files`:
 8. `run_occurrence_based_ranking`:
