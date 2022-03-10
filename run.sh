@@ -56,7 +56,7 @@ run_fetch_door2_and_ncbi_data(){
 	echo "Fetching operon table and genbank using restapi..."
 	cd ${BIN_FOLDER}
 	unzip ftp_path.zip
-	python3.6 fetch_operon_genbank_restapi.py ${DATA_FOLDER}
+	python3 fetch_operon_genbank_restapi.py ${DATA_FOLDER}
 	echo "DONE fetching operon table and genbank using restapi!"
 }
 
@@ -70,7 +70,7 @@ run_classification_code(){
 		FILE2=$(ls ${DATA_FOLDER}/${DIR}/*NC_*[0-9].txt)
 		#echo $FILE1 $FILE2
 	 	cd ${BIN_FOLDER}
-	 	python3.6 oprfile_operon_classification_alldoor2_v2.py ${FILE1} ${FILE2}
+	 	python3 oprfile_operon_classification_alldoor2_v2.py ${FILE1} ${FILE2}
 		cd ..
    	done
 	echo "DONE running operon classification!"
@@ -82,7 +82,7 @@ run_concatenate_all_classified_files(){
     #OP_HEADER=$(cat data/Acaryochloris_marina_MBIC11017/Acaryochloris_marina_MBIC11017_NC_009925_operon_classification_output.txt | head -n 1 | cut -f2-)
     #printf $OP_HEADER>  ${ANALYSES_FOLDER}/Final_combined_files.txt
     touch ${ANALYSES_FOLDER}/Final_combined_files.txt
-    echo -e "Filename \t function \t operon \t classification \t gene_symbol \t COG_number" >  ${ANALYSES_FOLDER}/Final_combined_files.txt
+    echo "Filename \t function \t operon \t classification \t gene_symbol \t COG_number" >  ${ANALYSES_FOLDER}/Final_combined_files.txt
     for DIR in $(ls ${DATA_FOLDER}/*/*classification_output.txt)
     do
         #echo ${DIR}
@@ -91,7 +91,7 @@ run_concatenate_all_classified_files(){
         # grep "both" ${DIR} >> ${ANALYSES_FOLDER}/Final_combined_files.txt
         TAB=`echo 'x' | tr 'x' '\011'`
             grep "both" $DIR | while IFS=$TAB read -r col1 col2 col3 col4 col5 col6; do
-            echo -e "$FILENAME \t $col2 \t $col3 \t $col4 \t $col5 \t $col6" >> ${ANALYSES_FOLDER}/Final_combined_files.txt;    done
+            echo "$FILENAME \t $col2 \t $col3 \t $col4 \t $col5 \t $col6" >> ${ANALYSES_FOLDER}/Final_combined_files.txt;    done
    done
     cat ${ANALYSES_FOLDER}/Final_combined_files.txt | cut -f1 | uniq > ${ANALYSES_FOLDER}/genome_list_containing_both.txt
     echo "DONE running to combine classified files"
@@ -100,7 +100,7 @@ run_concatenate_all_classified_files(){
 
 run_modify_concatenate_all_classified_files(){
 	echo "Running to modifying the combined classified files"
-	python3.6 ${BIN_FOLDER}/combined_file_manipulation.py \
+	python3 ${BIN_FOLDER}/combined_file_manipulation.py \
 	${ANALYSES_FOLDER}/Final_combined_files.txt
 	echo "DONE running to modifying the combined classified files"
 }
@@ -110,7 +110,7 @@ run_occurrence_based_ranking(){
 	echo "Running occurrence based ranking"
 	mkdir -p ${ANALYSES_FOLDER}/occurrence
 	mkdir -p ${ANALYSES_FOLDER}/occurrence/plots
-	python3.6 ${BIN_FOLDER}/occurrence_based_ranking_analysis.py \
+	python3 ${BIN_FOLDER}/occurrence_based_ranking_analysis.py \
 			${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
 			${ANALYSES_FOLDER}/occurrence/plots \
 			${ANALYSES_FOLDER}/occurrence
@@ -121,7 +121,7 @@ run_occurrence_based_ranking(){
 run_cooccurrence_based_gene_ranking(){
 	echo "Running co-occurrence gene based ranking"
 	mkdir -p ${ANALYSES_FOLDER}/co-occurrence
-	python3.6 ${BIN_FOLDER}/cooccurrence_gene_based_ranking_analysis.py \
+	python3 ${BIN_FOLDER}/cooccurrence_gene_based_ranking_analysis.py \
          	${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
         	${ANALYSES_FOLDER}/co-occurrence
    	echo "DONE running co-occurrence based gene ranking"
@@ -132,7 +132,7 @@ run_cooccurrence_based_functional_ranking(){
 	echo "Running co-occurrence based functional ranking"
 	mkdir -p ${ANALYSES_FOLDER}/co-occurrence
    	mkdir  ${ANALYSES_FOLDER}/co-occurrence/top_genome_list
-	python3.6 ${BIN_FOLDER}/cooccurrence_func_based_ranking_analysis.py \
+	python3 ${BIN_FOLDER}/cooccurrence_func_based_ranking_analysis.py \
          	${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
          	${ANALYSES_FOLDER}/co-occurrence
    	echo "DONE running co-occurrence based functional ranking"
@@ -146,7 +146,7 @@ run_gene_motif_search(){
 	echo "">${ANALYSES_FOLDER}/motif_counts.txt
 	while read p; do
 		echo Running for motif \"${p}\"
-		python3.6 ${BIN_FOLDER}/gene_comb_count.py \
+		python3 ${BIN_FOLDER}/gene_comb_count.py \
 	    		${ANALYSES_FOLDER}/Final_combined_files_corrected.txt \
 	    		${ANALYSES_FOLDER}/gene_motif \
 	    		"${p}" >> ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
@@ -193,7 +193,7 @@ run_compress_fasta_for_phylogenetic_analyses(){
 	for FILE in ${ANALYSES_FOLDER}/gene_motif/16S_sequences/*.fasta
 		do
 			echo "running on $(basename ${FILE}) file"
-			python3.6 ${BIN_FOLDER}/compressed_fasta_genuslevel.py ${FILE} ${ANALYSES_FOLDER}/gene_motif/16S_sequences_genuslevel
+			python3 ${BIN_FOLDER}/compressed_fasta_genuslevel.py ${FILE} ${ANALYSES_FOLDER}/gene_motif/16S_sequences_genuslevel
 	done
 	echo "Running to compress extract 16S sequences of genomes at genus level"
 }

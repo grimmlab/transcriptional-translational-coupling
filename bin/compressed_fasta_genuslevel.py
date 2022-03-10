@@ -2,7 +2,7 @@
 #!/usr/bin/python3.6
 
 __author__ = "Richa Bharti"
-__copyright__ = "Copyright 2019"
+__copyright__ = "Copyright 2019-2022"
 __license__ = "MIT"
 __version__ = "0.1.0"
 __maintainer__ = "Richa Bharti, Dominik Grimm"
@@ -53,12 +53,13 @@ for i in range(0,len(records)):
         # Call R function
         #print(genus_id)
         tr = txz.tax_name(sci=genus_id, get = ["phylum","kingdom"], db = "itis", messages = False, rows = 1)
-        #print(tr)
+        if len(tr)!=4:
+            continue
         if (type(tr[2][0]) == rpy2.rinterface_lib.sexp.NACharacterType) or (type(tr[3][0]) == rpy2.rinterface_lib.sexp.NACharacterType):
           break;
         id_line = '>' + tr[2][0] + '|' + tr[3][0] + '|' + tr[1][0]  + '\n'
         #print(id_line)
-        seq = records[i]._seq._data + '\n'
+        seq = (records[i]._seq._data).decode("ascii") + '\n'
         w_handle.write(id_line)
         seq_nl =  re.sub("(.{80})", "\\1\n", seq, 0, re.DOTALL)
         w_handle.write(seq_nl)

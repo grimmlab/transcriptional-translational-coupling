@@ -2,7 +2,7 @@
 #!/usr/bin/python3
 
 __author__ = "Richa Bharti"
-__copyright__ = "Copyright 2019"
+__copyright__ = "Copyright 2019-2022"
 __license__ = "MIT"
 __version__ = "0.1.0"
 __maintainer__ = "Richa Bharti, Dominik Grimm"

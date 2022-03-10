@@ -2,7 +2,7 @@
 #!/usr/bin/python3
 
 __author__ = "Richa Bharti"
-__copyright__ = "Copyright 2019"
+__copyright__ = "Copyright 2019-2022"
 __license__ = "MIT"
 __version__ = "0.1.0"
 __maintainer__ = "Richa Bharti, Dominik Grimm"
@@ -34,10 +34,9 @@ final_output_file = args.final_output_file
 path_outputfile = args.path_outputfile                                                                                                          
                                                                                                                                                   
 #final_output_file = 'Final_combined_files.txt'                                                                                                   
-                                                                                                                                                  
-
 final_output = pd.read_csv(final_output_file, sep='\t')
 final_output['corrected_function'] = final_output['corrected_function'].str.lower()
+
 
 def count_to_dict(it, dic):
     if it =='na' or it == 'NA' or it == 'hypothetical protein' or it == 'conserved hypothetical protein' or it == '-':

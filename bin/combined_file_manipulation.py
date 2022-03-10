@@ -2,7 +2,7 @@
 #!/usr/bin/python3
 
 __author__ = "Richa Bharti"
-__copyright__ = "Copyright 2019"
+__copyright__ = "Copyright 2019-2022"
 __license__ = "MIT"
 __version__ = "0.1.0"
 __maintainer__ = "Richa Bharti, Dominik Grimm"
@@ -45,8 +45,9 @@ for i in range(0,len(final_tab)):
             else:
                 gene_cog_dict[gs[ig].strip()] = cn[ig].strip()
                 cog_gene_dict[cn[ig].strip()] = gs[ig].strip()
-    else:
-        print (str(i))
+    
+    #else:
+    #    print (str(i))
 
 
 g_final = []
@@ -82,7 +83,7 @@ for i in range(0,len(final_tab)):
             g_ls.append(gs[ig].strip())
             c_ls.append(cn[ig].strip())
     else:
-        print (str(i))
+        #print (str(i))
         for g in gs:
             g_ls.append(g.strip())
             
@@ -106,8 +107,8 @@ for i in range(0,len(final_tab)):
         for ig in range(0,len(gs)):
             if gs[ig].strip() != 'NA':
                 gene_fn_dict[gs[ig].strip()] = fn[ig].strip()
-    else:
-        print (str(i))
+    #else:
+    #    print (str(i))
                 
 f_final = []        
 for i in range(0,len(final_tab)):
