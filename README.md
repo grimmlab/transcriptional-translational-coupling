@@ -59,7 +59,8 @@ pip3 install -r requirements.txt
 ```
     
 
-# How to download the data
+# Data
+To identify and investigate operons containing both transcriptional and translational genes, 2,071 bacterial genomes were downloaded from the DOOR2 database and corresponding annotation files were retrieved from GenBank using the available REST API.  
 
 We created a data dump, including all necessary data from the DOOR2 database and NCBI Genbank to reproduce the results from the paper. Alternatively all data can be also fetched from the DOOR2 database and from NCBI Genbank (time consuming).
 
