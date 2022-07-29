@@ -17,9 +17,7 @@ main(){
 	run_occurrence_based_ranking
 	run_cooccurrence_based_gene_ranking
 	run_cooccurrence_based_functional_ranking
-	run_gene_motif_search
-	run_extract_sequences_for_phylogenetic_analyses
-	run_compress_fasta_for_phylogenetic_analyses
+	run_gene_cassette_search
 }
 
 #create folder structure
@@ -139,8 +137,8 @@ run_cooccurrence_based_functional_ranking(){
 }
 
 
-run_gene_motif_search(){
-  	echo "Running to gene motif search "
+run_gene_cassette_search(){
+  	echo "Running to gene cassette search "
   	rm ${ANALYSES_FOLDER}/motif_counts_for_genes.txt
 	mkdir -p ${ANALYSES_FOLDER}/gene_motif
 	echo "">${ANALYSES_FOLDER}/motif_counts.txt
@@ -157,46 +155,9 @@ run_gene_motif_search(){
 	       		sz=`cat $fname | wc -l`   # Not a UUOC done to get just a line count
 	       		[ $sz -lt 2 ] && rm $fname
 		done
-	echo "DONE running to gene motif search "
+	echo "DONE running to gene cassette search "
 }
 
-run_extract_sequences_for_phylogenetic_analyses(){
-    echo "Running to extract 16S sequences of genomes"
-    rm -rf ${ANALYSES_FOLDER}/gene_motif/16S_sequences
-    wget -qO- https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.10.1/ncbi-blast-2.10.1+-x64-linux.tar.gz | tar -xvz -C ${BIN_FOLDER}
-    mkdir -p ${DATA_FOLDER}/16S_DB
-    wget -qO- http://ftp.ncbi.nlm.nih.gov/blast/db/16S_ribosomal_RNA.tar.gz | tar -xvz -C ${DATA_FOLDER}/16S_DB
-    mkdir -p ${ANALYSES_FOLDER}/gene_motif/16S_sequences
-    for FILE in ${ANALYSES_FOLDER}/gene_motif/*_genome_list.txt
-        do
-            FILENAME=$(basename ${FILE} | sed -e "s/_genome_list.txt/_genome/")
-            #echo "Acidaminococcus fermentans DSM 20731" | grep -F "$(<${ANALYSES_FOLDER}/gene_motif/tmp.txt)"
-            #grep -F $(<analyses/gene_motif/tmp.txt)
-            cat ${FILE} | sed 1d | awk -F'\t' '{print $1}'  >  ${ANALYSES_FOLDER}/gene_motif/tmp.txt
-            TMPGRP=$(cat ${ANALYSES_FOLDER}/gene_motif/tmp.txt)
-            ${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd \
-                -db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA \
-                -entry all -outfmt "%g;;%t" | grep -F "${TMPGRP}" | awk -F";;" '/16S/{print $1}' | ${BIN_FOLDER}/ncbi-blast-2.10.1+/bin/blastdbcmd \
-                -db ${DATA_FOLDER}/16S_DB/16S_ribosomal_RNA \
-                -entry_batch - \
-                -out ${ANALYSES_FOLDER}/gene_motif/16S_sequences/${FILENAME}_sequences.fasta
-        done
-    rm ${ANALYSES_FOLDER}/gene_motif/tmp.txt
-    echo "DONE running to extract 16S sequences of genomes"
-}
-
-
-run_compress_fasta_for_phylogenetic_analyses(){
-	echo "Running to compress extract 16S sequences of genomes at genus level"
-	mkdir -p  ${ANALYSES_FOLDER}/gene_motif/16S_sequences_genuslevel
-	#cd ${ANALYSES_FOLDER}/gene_motif/16S_sequences_genuslevel
-	for FILE in ${ANALYSES_FOLDER}/gene_motif/16S_sequences/*.fasta
-		do
-			echo "running on $(basename ${FILE}) file"
-			python3 ${BIN_FOLDER}/compressed_fasta_genuslevel.py ${FILE} ${ANALYSES_FOLDER}/gene_motif/16S_sequences_genuslevel
-	done
-	echo "Running to compress extract 16S sequences of genomes at genus level"
-}
 
 
 main
