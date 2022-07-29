@@ -281,6 +281,6 @@ for key in n_key_list:
             
     prokka_input_protien = prokka_input_protien[0]
     prokka_output_folder = output_path + '/' + sp_name + '/' + 'prokka_output'
-    cmd = 'prokka --kingdom Bacteria --proteins ' + prokka_input_protien + ' ' + prokka_input_genomic + ' --outdir ' + prokka_output_folder + ' --usegenus --compliant --cpus 64 --rfam'
+    cmd = 'prokka/bin/prokka --kingdom Bacteria --proteins ' + prokka_input_protien + ' ' + prokka_input_genomic + ' --outdir ' + prokka_output_folder + ' --usegenus --compliant --cpus 64 --rfam'
     print(cmd)
     os.system(cmd)
