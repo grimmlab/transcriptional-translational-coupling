@@ -19,11 +19,16 @@ prokka/bin/prokka --setupdb
 More detailed information can be found here: https://github.com/tseemann/prokka
 
 
-3. Uncompress the ftp_path to ftp_path.pckl file before running the analyses
-4. Run the analyses with the command below 
+
+2. Uncompress the ftp_path to ftp_path.pckl file before running the analyses  
 
 ```
 unzip ftp_path.zip
+```
+
+4. Run the analyses with the command below 
+
+```
 mkdir results
 python3 fetch_150_random_genbank_ids_restapi_run_prokka.py results
 ```
