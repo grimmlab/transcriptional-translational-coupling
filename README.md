@@ -9,7 +9,7 @@ Richa Bharti, Daniel Siebert, Bastian Blombach, Dominik G. Grimm
  <p style='text-align: justify;'> The aim of this study is to provide a comprehensive workflow to systematically investigate bacterial genomes for the abundance of transcriptional and translational associated genes clustered in distinct operons.</p>
 
  ## Pipeline Summary
-We have created a comparative genomics pipeline for screening genomic distributions of probable conserved operonic motifs in bacteria (Figure 1). More details can be found in the accompanying manuscript (currently under preparation). The workflow is based an a series of different steps, which are based on custom Python, R and Bash scripts. The full pipeline can be run with a single Bash command: `run.sh` (more details can be found below).
+We have created a comparative genomics pipeline for screening genomic distributions of probable conserved operonic gene cassettes in bacteria (Figure 1). More details can be found in the accompanying manuscript (currently under preparation). The workflow is based an a series of different steps, which are based on custom Python, R and Bash scripts. The full pipeline can be run with a single Bash command: `run.sh` (more details can be found below).
 
 Figure 1 gives a general overview about the different steps of the pipeline. More details can be found in the accompanying manuscript.
 
@@ -60,9 +60,9 @@ pip3 install -r requirements.txt
     
 
 # Data
-To identify and investigate operons containing both transcriptional and translational genes, 2,071 bacterial genomes were downloaded from the DOOR2 database and corresponding annotation files were retrieved from GenBank using the available REST API.  
+To identify and investigate operons containing both transcriptional and translational genes, 2,071 bacterial genomes were downloaded from the DOOR2 database and corresponding annotation files were retrieved from the NCBI Assembly database using the available REST API.  
 
-We created a data dump, including all necessary data from the DOOR2 database and NCBI Genbank to reproduce the results from the paper. Alternatively all data can be also fetched from the DOOR2 database and from NCBI Genbank (time consuming).
+We created a data dump, including all necessary data from the DOOR2 database and the NCBI Assembly database to reproduce the results from the paper. Alternatively all data can be also fetched from the DOOR2 database and from NCBI Assembly database (time consuming).
 
 ## Download data dump
 To download the data dump just run the following commands in your command line.  
@@ -107,7 +107,7 @@ In the following we will give some detailes about the individual steps of the pi
 
 2. `run_uncompress_door2_and_ncbi_data`: The data dumps from the GitHub repo are merged and unzipped into `data/data`  
 
-3. `run_classification_code`: This is the most time intensive step of the whole pipeline. Here the data from GenBank and the DOOR database are analysed. First, GenBank annotation files are extracted for each genome and a table of operons is created based on the relative proportions of operons which fall into one of the following categories:  
+3. `run_classification_code`: This is the most time intensive step of the whole pipeline. Here the annotations from the NCBI and the DOOR database are analysed. First, annotation files are extracted from the NCBI Assembly database for each genome and a table of operons is created based on the relative proportions of operons which fall into one of the following categories:  
 *a) Genes in operon associated with only transcription  
 b) Genes in operon associated with only translation  
 c) both: Genes in operon associated with both transcription and translation   
@@ -116,10 +116,7 @@ Second, count data is generated for each operon table by comparing them with a l
 6. `run_concatenate_all_classified_files`: The output files from the previous task are mergerd into a single table, including information such as locus tag, function, gene name and COG id. In addition the table is filtered for operons with only genes associated with both transcription and translation (results can be found in `analyses/genome_list_containing_both.txt` and `analyses/Final_combined_files.txt`)
 7. `run_modify_concatenate_all_classified_files`: Due to various inconsistencies how genes are named and identified as well as inconsitent or missing annotations an additional script is used create a unified and cleaned up table (output can be found in `analyses/Final_combined_files_corrected.txt`) 
 8. `run_occurrence_based_ranking`: In this step a occurance based ranking is performed in which genes, functions and COG ids are grouped and clustered based on their occurrence in the genomes. The top 18 overlapping occurrence genes were extracted and used to perform a gene enrichment and clustering-based analyses. Results of this analysis, including plots, can be found in `analyses/occurrence`.
-9. `run_cooccurrence_based_gene_ranking`: All cooccurrencing gene motifs are grouped and counted. Results of this analysis, can be found in `analyses/co-occurrence/gene_cooccurrence_based_ranking_output.txt`.
-10. `run_cooccurrence_based_functional_ranking`: All cooccurrencing functional motifs are grouped and counted. Results of this analysis, can be found in `analyses/co-occurrence/functional_cooccurrence_based_ranking_output.txt`.
-11. `run_gene_motif_search`: The STRING v10 database is used to perform a network based analysis for clustering motifs based on gene fusion (genes reportedly existing as hybrids without any intergenic sequence(s)), gene neighborhood (genes within close proximity) and gene co-occurrence (genes existing together on same genomic loci with intergenic sequences and/or other genes). Next, the frequency of the resulting operonic gene motifs across all extracted genomes are computed. Results of this analysis, can be found in `analyses/analyses/motif_counts_for_genes.txt` and in `analyses/gene_motif/`.
-12. `run_extract_sequences_for_phylogenetic_analyses`: The sequence for the top cooccuring motifs list are extracted for multiple sequence alignment and for phylogenetic analyses
-13. `run_compress_fasta_for_phylogenetic_analyses`: Extracts phylum and kingdom information from the sequences for phylogenetic analyses and classification
-
+9. `run_cooccurrence_based_gene_ranking`: All cooccurrencing gene cassettes are grouped and counted. Results of this analysis, can be found in `analyses/co-occurrence/gene_cooccurrence_based_ranking_output.txt`.
+10. `run_cooccurrence_based_functional_ranking`: All cooccurrencing functional gene cassettes are grouped and counted. Results of this analysis, can be found in `analyses/co-occurrence/functional_cooccurrence_based_ranking_output.txt`.
+11. `run_gene_cassette_search`: The STRING v10 database is used to perform a network based analysis for clustering gene cassettes based on gene fusion (genes reportedly existing as hybrids without any intergenic sequence(s)), gene neighborhood (genes within close proximity) and gene co-occurrence (genes existing together on same genomic loci with intergenic sequences and/or other genes). Next, the frequency of the resulting operonic gene cassettes across all extracted genomes are computed. Results of this analysis, can be found in `analyses/analyses/motif_counts_for_genes.txt` and in `analyses/gene_motif/`.
 
