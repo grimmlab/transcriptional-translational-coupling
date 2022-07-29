@@ -15,7 +15,7 @@ Figure 1 gives a general overview about the different steps of the pipeline. Mor
 
 
 <p align="center">
-  <img src="https://github.com/grimmlab/transcriptional-translational-coupling/blob/master/Figure%201.png">
+  <img src="https://github.com/grimmlab/transcriptional-translational-coupling/blob/master/Figure1.png">
 </p>
 
 # Prerequisites
