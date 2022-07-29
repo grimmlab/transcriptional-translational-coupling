@@ -27,7 +27,7 @@ import random
 
 
 
-parser = argparse.ArgumentParser(description='Fetch door2 and genbank data. ')
+parser = argparse.ArgumentParser(description='Fetch door2 and NCBI annotation data. ')
 
 parser.add_argument('output_path', type=str,
                     help='path where fetched data should to be stored.')
