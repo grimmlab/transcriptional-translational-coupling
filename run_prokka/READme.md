@@ -1,5 +1,5 @@
 
-# Reannotation check pipeline
+# Reannotation pipeline
 
 This commands will fetch 150 genomes for reannotation with prokka. We will then compare these reannotations with those from GenBank.
 
